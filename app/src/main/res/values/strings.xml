@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">KtorChatApp</string>
+    <string name="empty_string_err">This filed can not be empty</string>
+    <string name="shor_pass_err">Password is too short</string>
+    <string name="online">online</string>
+    <string name="example_user_name">Ivan Petrox</string>
+    <string name="search_ed">Search</string>
+    <string name="global_search">Global search</string>
+    <string name="my_contacts">Contacts</string>
+    <string name="contacts">Contacts</string>
+    <string name="search">Search</string>
+    <string name="groups">Groups</string>
+    <string name="welcome">Welcome</string>
+    <string name="login_to_continue">Log in to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email_address">Email</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_acc_button">Create account</string>
+    <string name="enter_data_to_register_text">Enter data</string>
+    <string name="messages">Messages</string>
+    <string name="enter_name_text">enter name</string>
+    <string name="enter_ur_nickname_tv">NickName</string>
+    <string name="enter_bio_tv">Bio</string>
+    <string name="finish">Finish</string>
+    <string name="example_message">Message</string>
+    <string name="_12_34pm">12:34 pm</string>
+    <string name="incorrect_email_err">Incorrect email address</string>
+    <string name="unequal_pass_err">Passwords are not equal</string>
+</resources>
