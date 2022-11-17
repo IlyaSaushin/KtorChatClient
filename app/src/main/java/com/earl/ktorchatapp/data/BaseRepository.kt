@@ -1,34 +1,40 @@
 package com.earl.ktorchatapp.data
 
 import com.earl.ktorchatapp.core.OperationResultListener
-import com.earl.ktorchatapp.data.mappers.LoginDtoDataToRemoteMapper
-import com.earl.ktorchatapp.data.mappers.RegisterDtoDataToRemoteMapper
-import com.earl.ktorchatapp.data.mappers.RemoteTokenToDataMapper
+import com.earl.ktorchatapp.data.mappers.*
 import com.earl.ktorchatapp.data.models.DataLoginDto
 import com.earl.ktorchatapp.data.models.DataRegisterDto
 import com.earl.ktorchatapp.data.models.DataTokenDto
-import com.earl.ktorchatapp.data.models.remote.RemoteLoginDto
-import com.earl.ktorchatapp.data.models.remote.RemoteRegisterDto
+import com.earl.ktorchatapp.data.models.DataUserInfo
+import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
+import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
+import com.earl.ktorchatapp.data.models.remote.RequestTokenDto
 import com.earl.ktorchatapp.data.retrofit.Service
 import com.earl.ktorchatapp.domain.Repository
 import com.earl.ktorchatapp.domain.mappers.LoginDtoDomainToDataMapper
 import com.earl.ktorchatapp.domain.mappers.RegisterDtoDomainToDataMapper
 import com.earl.ktorchatapp.domain.models.DomainLoginDto
 import com.earl.ktorchatapp.domain.models.DomainRegisterDto
+import com.earl.ktorchatapp.domain.models.DomainUserInfo
 import javax.inject.Inject
 
 class BaseRepository @Inject constructor(
     private val service: Service,
     private val loginDomainToData: LoginDtoDomainToDataMapper<DataLoginDto>,
     private val tokenRemoteToDataMapper: RemoteTokenToDataMapper<DataTokenDto>,
-    private val registerDataToRemoteMapper: RegisterDtoDataToRemoteMapper<RemoteRegisterDto>,
+    private val registerDataToRemoteMapper: RegisterDtoDataToRemoteMapper<RequestRegisterDto>,
     private val registerDomainToDataMapper: RegisterDtoDomainToDataMapper<DataRegisterDto>,
-    private val loginDtoDataToRemoteMapper: LoginDtoDataToRemoteMapper<RemoteLoginDto>,
+    private val loginDtoDataToRemoteMapper: LoginDtoDataToRemoteMapper<RequestLoginDto>,
+    private val userInfoRemoteToDataMapper: UserInfoRemoteToDataMapper<DataUserInfo>,
+    private val userInfoDataToDomainMapper: UserInfoDataToDomainMapper<DomainUserInfo>,
 ) : Repository {
 
     override suspend fun login(loginDto: DomainLoginDto, callback: OperationResultListener) {
         try {
-            val token = service.login(loginDto.map(loginDomainToData).map(loginDtoDataToRemoteMapper)).map(tokenRemoteToDataMapper)
+            val token = service.login(
+                loginDto.map(loginDomainToData)
+                    .map(loginDtoDataToRemoteMapper)
+            ).userToken
             callback.success(token)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -41,11 +47,25 @@ class BaseRepository @Inject constructor(
         callback: OperationResultListener
     ) {
         try {
-            val token = service.register(registerDto.map(registerDomainToDataMapper).map(registerDataToRemoteMapper))
+            val token = service.register(
+                registerDto
+                    .map(registerDomainToDataMapper).map(registerDataToRemoteMapper)
+            ).userToken
             callback.success(token)
         } catch (e: Exception) {
             e.printStackTrace()
             callback.fail(e)
         }
     }
+
+    override suspend fun fetchUserInfo(userToken: String) =
+        service.fetchUserInfo(RequestTokenDto(userToken))
+            .map(userInfoRemoteToDataMapper)
+            .map(userInfoDataToDomainMapper)
+
+    override suspend fun fetchContacts(userToken: String) =
+        service.fetchContacts(RequestTokenDto(userToken)).map { remote ->
+            remote.map(userInfoRemoteToDataMapper)
+                .map(userInfoDataToDomainMapper)
+        }
 }

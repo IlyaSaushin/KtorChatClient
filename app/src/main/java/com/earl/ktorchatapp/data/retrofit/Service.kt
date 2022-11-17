@@ -1,8 +1,8 @@
 package com.earl.ktorchatapp.data.retrofit
 
-import com.earl.ktorchatapp.data.models.DataLoginDto
-import com.earl.ktorchatapp.data.models.remote.RemoteLoginDto
-import com.earl.ktorchatapp.data.models.remote.RemoteRegisterDto
+import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
+import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
+import com.earl.ktorchatapp.data.models.remote.RequestTokenDto
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -12,13 +12,13 @@ interface Service {
     @Headers("Content-Type: application/json")
     @POST("/register")
     suspend fun register(
-        @Body registerDto: RemoteRegisterDto
+        @Body registerDto: RequestRegisterDto
     ): RemoteTokenDto
 
     @Headers("Content-Type: application/json")
     @POST("/login")
     suspend fun login(
-        @Body loginDto: RemoteLoginDto
+        @Body loginDto: RequestLoginDto
     ): RemoteTokenDto
 
 //    @Headers("Content-Type: application/json")
@@ -45,17 +45,17 @@ interface Service {
 //        @Body room: NewRoomRequestDto?
 //    ): Call<TokenDto?>?
 //
-//    @Headers("Content-Type: application/json")
-//    @POST("/fetchUserInfo")
-//    fun fetchUserInfo(
-//        @Body token: TokenDto?
-//    ): Call<UserInfo?>?
+    @Headers("Content-Type: application/json")
+    @POST("/fetchUserInfo")
+    suspend fun fetchUserInfo(
+        @Body token: RequestTokenDto
+    ): RemoteUserInfo
 //
-//    @Headers("Content-Type: application/json")
-//    @POST("/contacts")
-//    fun fetchContacts(
-//        @Body token: TokenDto?
-//    ): Flowable<ContactsListResponse?>?
+    @Headers("Content-Type: application/json")
+    @POST("/contacts")
+    suspend fun fetchContacts(
+        @Body token: RequestTokenDto
+    ): List<RemoteUserInfo>
 //
 //    @Headers("Content-Type: application/json")
 //    @POST("/addContact")

@@ -6,7 +6,7 @@ interface NavigationContract {
 
     fun register()
 
-    fun showAddDetailsFragment(email: String?, password: String?)
+    fun showAddDetailsFragment(email: String, password: String)
 
     fun chat()
 

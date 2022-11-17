@@ -2,6 +2,9 @@ package com.earl.ktorchatapp.di
 
 import android.app.Application
 import com.earl.ktorchatapp.data.retrofit.Client
+import com.earl.ktorchatapp.ui.chat.baseFragment.BaseChatFragment
+import com.earl.ktorchatapp.ui.chat.contacts.ContactsFragment
+import com.earl.ktorchatapp.ui.chat.contacts.addContacts.AddContactFragment
 import com.earl.ktorchatapp.ui.login.LoginFragment
 import com.earl.ktorchatapp.ui.register.RegisterDetailsFragment
 import com.earl.ktorchatapp.ui.register.RegisterFragment
@@ -18,7 +21,8 @@ import javax.inject.Singleton
         UiModule::class,
         ViewModelsModule::class,
         DomainModule::class,
-        Client::class
+        Client::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent {
@@ -30,6 +34,12 @@ interface AppComponent {
     fun injectRegisterDetailsFragment(fragment: RegisterDetailsFragment)
 
     fun injectUserDetailsFragment(fragment: RegisterDetailsFragment)
+
+    fun injectChatBaseFragment(fragment: BaseChatFragment)
+
+    fun injectContactsFragment(fragment: ContactsFragment)
+
+    fun injectAddContactFragment(fragment: AddContactFragment)
 
     @Component.Factory
     interface Factory {

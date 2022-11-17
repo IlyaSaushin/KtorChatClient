@@ -1,9 +1,9 @@
 package com.earl.ktorchatapp.data.mappers
 
-import com.earl.ktorchatapp.data.models.remote.RemoteRegisterDto
+import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
 import javax.inject.Inject
 
-class BaseRegisterDataToRemoteMapper @Inject constructor() : RegisterDtoDataToRemoteMapper<RemoteRegisterDto> {
+class BaseRegisterDataToRemoteMapper @Inject constructor() : RegisterDtoDataToRemoteMapper<RequestRegisterDto> {
 
     override fun map(
         email: String,
@@ -11,5 +11,5 @@ class BaseRegisterDataToRemoteMapper @Inject constructor() : RegisterDtoDataToRe
         password: String,
         bio: String,
         pic: String
-    ) = RemoteRegisterDto(email, username, password, bio, pic)
+    ) = RequestRegisterDto(email, username, password, bio, pic)
 }

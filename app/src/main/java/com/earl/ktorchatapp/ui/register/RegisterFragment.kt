@@ -11,9 +11,7 @@ import com.earl.ktorchatapp.databinding.FragmentRegisterBinding
 import com.earl.ktorchatapp.ui.NavigationContract
 import javax.inject.Inject
 
-class RegisterFragment @Inject constructor(
-
-): BaseFragment<FragmentRegisterBinding>() {
+class RegisterFragment @Inject constructor(): BaseFragment<FragmentRegisterBinding>() {
 
     private lateinit var navigator: NavigationContract
     private lateinit var preferenceManager: SharedPreferenceManager

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModelProvider
 import com.earl.ktorchatapp.KtorChatApp
 import com.earl.ktorchatapp.core.BaseFragment
 import com.earl.ktorchatapp.core.Keys
@@ -20,6 +21,7 @@ import com.earl.ktorchatapp.core.OperationResultListener
 import com.earl.ktorchatapp.core.SharedPreferenceManager
 import com.earl.ktorchatapp.databinding.FragmentUserDetailsBinding
 import com.earl.ktorchatapp.ui.NavigationContract
+import com.earl.ktorchatapp.ui.ViewModelFactory
 import com.earl.ktorchatapp.ui.models.UiRegisterDto
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
@@ -35,6 +37,8 @@ class RegisterDetailsFragment @Inject constructor(
     @Inject
     lateinit var viewModel: RegisterViewModel
     @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    @Inject
     lateinit var validation: UserDetailsFormValidation
     var encodedImage: String? = null
 
@@ -48,6 +52,7 @@ class RegisterDetailsFragment @Inject constructor(
         (requireContext().applicationContext as KtorChatApp).appComponent.injectRegisterDetailsFragment(this)
         navigator = requireActivity() as NavigationContract
         preferenceManager = SharedPreferenceManager(requireContext())
+        viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
         binding.addAvatar.setOnClickListener {
             val intent =
                 Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -55,6 +60,7 @@ class RegisterDetailsFragment @Inject constructor(
             pickImage.launch(intent)
         }
         binding.addDetailsButton.setOnClickListener { register() }
+        binding.iconBack.setOnClickListener { navigator.back() }
     }
 
     private fun isValidate(): Boolean {
@@ -74,8 +80,8 @@ class RegisterDetailsFragment @Inject constructor(
                 email,
                 binding.nameEd.text.toString(),
                 password,
+                binding.userBio.text.toString(),
                 encodedImage ?: "",
-                binding.userBio.text.toString()
             )
 
             viewModel.register(dto, this)

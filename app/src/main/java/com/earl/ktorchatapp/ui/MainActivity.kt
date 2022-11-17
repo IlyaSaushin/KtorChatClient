@@ -12,6 +12,8 @@ import com.earl.ktorchatapp.core.SharedPreferenceManager
 import com.earl.ktorchatapp.databinding.ActivityMainBinding
 import com.earl.ktorchatapp.ui.chat.baseFragment.BaseChatFragment
 import com.earl.ktorchatapp.ui.login.LoginFragment
+import com.earl.ktorchatapp.ui.register.RegisterDetailsFragment
+import com.earl.ktorchatapp.ui.register.RegisterFragment
 
 class MainActivity : AppCompatActivity(), NavigationContract {
 
@@ -42,11 +44,11 @@ class MainActivity : AppCompatActivity(), NavigationContract {
     }
 
     override fun register() {
-        TODO("Not yet implemented")
+        showFragment(RegisterFragment.newInstance())
     }
 
-    override fun showAddDetailsFragment(email: String?, password: String?) {
-        TODO("Not yet implemented")
+    override fun showAddDetailsFragment(email: String, password: String) {
+        showFragment(RegisterDetailsFragment.newInstance(email, password))
     }
 
     override fun chat() {

@@ -2,6 +2,7 @@ package com.earl.ktorchatapp.core
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.earl.ktorchatapp.ui.models.UiUserInfo
 
 class SharedPreferenceManager(context: Context) {
     private val sharedPreferences: SharedPreferences
