@@ -30,7 +30,9 @@ class AddContactViewModel @Inject constructor(
     }
 
     fun addUserToContacts(userUsername: String, contactUsername: String) {
-
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.addUserToContacts(userUsername, contactUsername)
+        }
     }
 
     fun observeUsersListLiveData(owner: LifecycleOwner, observer: Observer<List<UiUserInfo>>) {

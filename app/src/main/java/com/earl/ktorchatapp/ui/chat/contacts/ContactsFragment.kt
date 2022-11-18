@@ -1,11 +1,13 @@
 package com.earl.ktorchatapp.ui.chat.contacts
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import com.earl.ktorchatapp.KtorChatApp
 import com.earl.ktorchatapp.core.BaseFragment
 import com.earl.ktorchatapp.core.Keys
@@ -15,6 +17,7 @@ import com.earl.ktorchatapp.ui.NavigationContract
 import com.earl.ktorchatapp.ui.ViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import java.security.Key
 import javax.inject.Inject
 
 class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClickListener {
@@ -35,31 +38,19 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClick
         (requireContext().applicationContext as KtorChatApp).appComponent.injectContactsFragment(this)
         navigator = requireActivity() as NavigationContract
         preferenceManager = SharedPreferenceManager(requireContext())
-        viewModel = ViewModelProvider(this, viewModelFactory)[ContactsViewModel::class.java]
-        startSession()
+        refreshList()
+        viewModel.fetchContacts(preferenceManager.getString(Keys.KEY_TOKEN) ?: "")
         recycler()
         binding.inviteFriend.setOnClickListener {
-            viewModel.closeSession()
             navigator.showAddNewContactFragment()
         }
-    }
-
-    private fun startSession() {
-        viewModel.initSession(
-            preferenceManager.getString(Keys.KEY_NAME) ?: "",
-            preferenceManager.getString(Keys.KEY_TOKEN) ?: ""
-        )
     }
 
     private fun recycler() {
         val adapter = ContactsRecyclerAdapter(this)
         binding.recycler.adapter = adapter
-        lifecycleScope.launchWhenStarted {
-            viewModel._contacts
-                .onEach {
-                        contact ->
-                    adapter.submitList(contact)
-                }.collect()
+        viewModel.observeContactsListLiveData(this) {
+            adapter.submitList(it)
         }
     }
 
@@ -68,6 +59,10 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClick
             preferenceManager.getString(Keys.KEY_NAME) ?: "",
             username
         )
+    }
+
+    private fun refreshList() {
+        viewModel = ViewModelProvider(this, viewModelFactory)[ContactsViewModel::class.java]
     }
 
     companion object {

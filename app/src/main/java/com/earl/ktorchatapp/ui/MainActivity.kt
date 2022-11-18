@@ -11,6 +11,8 @@ import com.earl.ktorchatapp.core.Keys
 import com.earl.ktorchatapp.core.SharedPreferenceManager
 import com.earl.ktorchatapp.databinding.ActivityMainBinding
 import com.earl.ktorchatapp.ui.chat.baseFragment.BaseChatFragment
+import com.earl.ktorchatapp.ui.chat.contacts.ContactsFragment
+import com.earl.ktorchatapp.ui.chat.contacts.addContacts.AddContactFragment
 import com.earl.ktorchatapp.ui.login.LoginFragment
 import com.earl.ktorchatapp.ui.register.RegisterDetailsFragment
 import com.earl.ktorchatapp.ui.register.RegisterFragment
@@ -60,11 +62,11 @@ class MainActivity : AppCompatActivity(), NavigationContract {
     }
 
     override fun showAddNewContactFragment() {
-        TODO("Not yet implemented")
+        showFragment(AddContactFragment.newInstance())
     }
 
     override fun back() {
-        TODO("Not yet implemented")
+        supportFragmentManager.popBackStack()
     }
 
     override fun showProgressBar() {

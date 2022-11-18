@@ -36,6 +36,7 @@ class AddContactFragment : BaseFragment<FragmentAddNewContactBinding>(), GlobalU
         viewModel = ViewModelProvider(this, viewModelFactory)[AddContactViewModel::class.java]
         fetchAllUsers()
         recycler()
+        binding.backStrlka.setOnClickListener { navigator.back() }
     }
 
     private fun fetchAllUsers() {

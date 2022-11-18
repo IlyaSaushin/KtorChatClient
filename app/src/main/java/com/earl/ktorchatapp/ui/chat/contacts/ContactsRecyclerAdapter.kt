@@ -39,7 +39,9 @@ class ContactsRecyclerAdapter(
         }
 
         override fun removeUserFromContacts(username: String) {
-            clickListener.removeUserFromContacts(username)
+            binding.deleteProfile.setOnClickListener {
+                clickListener.removeUserFromContacts(username)
+            }
         }
     }
 

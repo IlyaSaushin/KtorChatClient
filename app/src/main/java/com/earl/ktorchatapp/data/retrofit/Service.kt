@@ -58,13 +58,13 @@ interface Service {
 
     @Headers("Content-Type: application/json")
     @POST("/addContact")
-    fun addContact(
+    suspend fun addContact(
         @Body addContactDto: RequestAddContactDto
     )
-//
-//    @Headers("Content-Type: application/json")
-//    @POST("/removeContact")
-//    fun removeContact(
-//        @Body removeUserFromContactsDto: RemoveUserFromContactsDto?
-//    ): Call<String?>?
+
+    @Headers("Content-Type: application/json")
+    @POST("/removeContact")
+    suspend fun removeContact(
+        @Body removeUserFromContactsDto: RequestRemoveUserFromContactDto
+    )
 }
