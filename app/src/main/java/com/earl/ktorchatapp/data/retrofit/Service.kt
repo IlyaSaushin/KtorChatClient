@@ -1,6 +1,5 @@
 package com.earl.ktorchatapp.data.retrofit
 
-import android.app.DownloadManager.Request
 import com.earl.ktorchatapp.data.models.remote.*
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -20,30 +19,30 @@ interface Service {
         @Body loginDto: RequestLoginDto
     ): RemoteTokenDto
 
-//    @Headers("Content-Type: application/json")
-//    @POST("/fetchRoomsForUser")
-//    fun fetchRoomsForUser(
-//        @Body token: TokenDto?
-//    ): Call<List<RoomResponseDto?>?>?
-//
+    @Headers("Content-Type: application/json")
+    @POST("/fetchRoomsForUser")
+    suspend fun fetchRoomsForUser(
+        @Body token: RequestTokenDto
+    ): List<RoomResponseDto>
+
     @Headers("Content-Type: application/json")
     @POST("/users")
     suspend fun fetchUsersList(
         @Body fetchAllUsers: RequestUsernameDto
     ): List<RemoteUserInfo>
-//
-//    @Headers("Content-Type: application/json")
-//    @POST("/messages")
-//    fun fetchMessagesForRoom(
-//        @Body roomToken: TokenDto?
-//    ): Call<List<MessageResponseDto?>?>?
-//
-//    @Headers("Content-Type: application/json")
-//    @POST("/addRoom")
-//    fun addRoom(
-//        @Body room: NewRoomRequestDto?
-//    ): Call<TokenDto?>?
-//
+
+    @Headers("Content-Type: application/json")
+    @POST("/messages")
+    suspend fun fetchMessagesForRoom(
+        @Body roomToken: RequestRoomToken
+    ) : List<RemoteMessageDto>
+
+    @Headers("Content-Type: application/json")
+    @POST("/addRoom")
+    suspend fun addRoom(
+        @Body room: RequestNewRoom
+    ) : RemoteRoomTokenDto
+
     @Headers("Content-Type: application/json")
     @POST("/fetchUserInfo")
     suspend fun fetchUserInfo(

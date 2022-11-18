@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.earl.ktorchatapp.KtorChatApp
 import com.earl.ktorchatapp.core.BaseFragment
@@ -67,7 +66,7 @@ class LoginFragment @Inject constructor() : BaseFragment<FragmentLoginBinding>()
         preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true)
         preferenceManager.putString(Keys.KEY_TOKEN, success.toString())
 //        Toast.makeText(requireContext(), success.toString(), Toast.LENGTH_SHORT).show()
-        navigator.chat()
+        navigator.chatBaseFragment()
     }
 
     override fun fail(exception: Exception?) {

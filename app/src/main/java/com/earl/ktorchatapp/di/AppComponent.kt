@@ -5,6 +5,8 @@ import com.earl.ktorchatapp.data.retrofit.Client
 import com.earl.ktorchatapp.ui.chat.baseFragment.BaseChatFragment
 import com.earl.ktorchatapp.ui.chat.contacts.ContactsFragment
 import com.earl.ktorchatapp.ui.chat.contacts.addContacts.AddContactFragment
+import com.earl.ktorchatapp.ui.chat.rooms.RoomsFragment
+import com.earl.ktorchatapp.ui.chat.rooms.chat.ChatFragment
 import com.earl.ktorchatapp.ui.login.LoginFragment
 import com.earl.ktorchatapp.ui.register.RegisterDetailsFragment
 import com.earl.ktorchatapp.ui.register.RegisterFragment
@@ -40,6 +42,10 @@ interface AppComponent {
     fun injectContactsFragment(fragment: ContactsFragment)
 
     fun injectAddContactFragment(fragment: AddContactFragment)
+
+    fun injectChatFragment(fragment: ChatFragment)
+
+    fun injectRoomsFragment(fragment: RoomsFragment)
 
     @Component.Factory
     interface Factory {

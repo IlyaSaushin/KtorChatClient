@@ -8,7 +8,9 @@ interface NavigationContract {
 
     fun showAddDetailsFragment(email: String, password: String)
 
-    fun chat()
+    fun chatBaseFragment()
+
+    fun chat(token: String)
 
     fun contacts()
 

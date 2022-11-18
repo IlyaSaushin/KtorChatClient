@@ -1,9 +1,9 @@
 package com.earl.ktorchatapp.domain
 
 import com.earl.ktorchatapp.core.OperationResultListener
-import com.earl.ktorchatapp.domain.models.DomainLoginDto
-import com.earl.ktorchatapp.domain.models.DomainRegisterDto
-import com.earl.ktorchatapp.domain.models.DomainUserInfo
+import com.earl.ktorchatapp.core.Resource
+import com.earl.ktorchatapp.domain.models.*
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface Interactor {
@@ -21,6 +21,20 @@ interface Interactor {
     suspend fun removeUserFromContact(userUsername: String, contactUsername: String)
 
     suspend fun addUserToContacts(userUsername: String, contactUsername: String)
+
+    suspend fun addRoom(name: String, private: String, author: String, users: List<String>) : String
+
+    suspend fun initChatSocketSession(username: String, roomToken: String) : Resource<Unit>
+
+    suspend fun fetchMessagesForRoom(roomToken: String) : List<DomainMessage>
+
+    suspend fun observeNewMessages() : Flow<DomainMessage>
+
+    suspend fun sendMessage(message: DomainMessage)
+
+    suspend fun fetchRooms(token: String) : List<DomainChatRoom>
+
+    suspend fun closeSession()
 
     class Base @Inject constructor(
         private val repository: Repository,
@@ -48,5 +62,26 @@ interface Interactor {
         override suspend fun addUserToContacts(userUsername: String, contactUsername: String) {
             repository.addUserToContacts(userUsername, contactUsername)
         }
+
+        override suspend fun addRoom(name: String, private: String, author: String, users: List<String>) =
+            repository.addRoom(name, private, author, users)
+
+        override suspend fun initChatSocketSession(username: String, roomToken: String) =
+            webSocketRepository.initChatSession(username, roomToken)
+
+        override suspend fun closeSession() {
+            webSocketRepository.closeSession()
+        }
+
+        override suspend fun fetchMessagesForRoom(roomToken: String) =
+            repository.fetchMessages(roomToken)
+
+        override suspend fun sendMessage(message: DomainMessage) {
+            webSocketRepository.sendMessage(message)
+        }
+
+        override suspend fun observeNewMessages() = webSocketRepository.observeMessages()
+
+        override suspend fun fetchRooms(token: String) = repository.fetchRooms(token)
     }
 }
