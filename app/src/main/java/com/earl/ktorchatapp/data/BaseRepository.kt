@@ -75,4 +75,8 @@ class BaseRepository @Inject constructor(
     override suspend fun addUserToContacts(userUsername: String, contactUsername: String) {
         service.addContact(RequestAddContactDto(userUsername, contactUsername))
     }
+
+    override suspend fun removeUserFromContacts(userUsername: String, contactUsername: String) {
+        service.removeContact(RequestRemoveUserFromContactDto(userUsername, contactUsername))
+    }
 }

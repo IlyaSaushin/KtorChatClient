@@ -88,7 +88,6 @@ class BaseChatFragment @Inject constructor() : BaseFragment<FragmentBaseChatBind
     private fun fetchUserInfo() {
         navigator.showProgressBar();
         val token = preferenceManager.getString(Keys.KEY_TOKEN)
-        Log.d("tag", "fetchUserInfo: fragment token -> $token")
         if (token == null) {
             Toast.makeText(
                 requireContext(),
