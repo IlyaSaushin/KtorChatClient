@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.earl.ktorchatapp.KtorChatApp
 import com.earl.ktorchatapp.core.BaseFragment
 import com.earl.ktorchatapp.core.Keys
+import com.earl.ktorchatapp.core.OperationResultListener
 import com.earl.ktorchatapp.core.SharedPreferenceManager
 import com.earl.ktorchatapp.databinding.FragmentContactsBinding
 import com.earl.ktorchatapp.ui.NavigationContract
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.onEach
 import java.security.Key
 import javax.inject.Inject
 
-class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClickListener {
+class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClickListener, OperationResultListener {
 
     private lateinit var navigator: NavigationContract
     private lateinit var preferenceManager: SharedPreferenceManager
@@ -63,6 +64,26 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClick
 
     private fun refreshList() {
         viewModel = ViewModelProvider(this, viewModelFactory)[ContactsViewModel::class.java]
+    }
+
+    override fun startChat(username: String) {
+        val userUsername = preferenceManager.getString(Keys.KEY_NAME) ?: ""
+        viewModel.startChat(
+            username,
+            "private",
+            userUsername,
+            listOf(userUsername, username),
+            this
+        )
+    }
+
+    override fun <T> success(success: T) {
+        val token = success as String
+        navigator.chat(token)
+    }
+
+    override fun fail(exception: Exception?) {
+        Log.d("tag", "contacts fragment fail: $exception")
     }
 
     companion object {

@@ -1,11 +1,7 @@
 package com.earl.ktorchatapp.ui.chat.contacts
 
-import android.util.Log
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.earl.ktorchatapp.core.OperationResultListener
 import com.earl.ktorchatapp.domain.Interactor
 import com.earl.ktorchatapp.domain.mappers.UserInfoDomainToUiMapper
 import com.earl.ktorchatapp.ui.models.UiUserInfo
@@ -35,6 +31,19 @@ class ContactsViewModel @Inject constructor(
     fun removeUserFromContacts(userUsername: String, contactUsername: String) {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.removeUserFromContact(userUsername, contactUsername)
+        }
+    }
+
+    fun startChat(name: String, private: String, author: String, users: List<String>, callback: OperationResultListener) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val token = interactor.addRoom(name, private, author, users)
+            withContext(Dispatchers.Main) {
+                if (callback as? String != "") {
+                    callback.success(token)
+                } else {
+                    callback.fail(Exception("Unknown error"))
+                }
+            }
         }
     }
 

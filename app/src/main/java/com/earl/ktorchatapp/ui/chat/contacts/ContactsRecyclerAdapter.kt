@@ -10,6 +10,7 @@ import com.earl.ktorchatapp.ui.models.UiUserInfo
 
 interface OnContactClickListener {
     fun removeUserFromContacts(username: String)
+    fun startChat(username: String)
 }
 
 class ContactsRecyclerAdapter(
@@ -25,6 +26,7 @@ class ContactsRecyclerAdapter(
         val item = getItem(position)
         holder.bind(item)
         holder.removeUserFromContacts(item.username())
+        holder.startChat(item.username())
     }
 
     inner class ItemViewHolder(
@@ -41,6 +43,12 @@ class ContactsRecyclerAdapter(
         override fun removeUserFromContacts(username: String) {
             binding.deleteProfile.setOnClickListener {
                 clickListener.removeUserFromContacts(username)
+            }
+        }
+
+        override fun startChat(username: String) {
+            binding.startMsg.setOnClickListener {
+                clickListener.startChat(username)
             }
         }
     }

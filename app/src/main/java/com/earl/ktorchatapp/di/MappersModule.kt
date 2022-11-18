@@ -1,19 +1,15 @@
 package com.earl.ktorchatapp.di
 
 import com.earl.ktorchatapp.data.mappers.*
-import com.earl.ktorchatapp.data.models.DataLoginDto
-import com.earl.ktorchatapp.data.models.DataRegisterDto
-import com.earl.ktorchatapp.data.models.DataTokenDto
-import com.earl.ktorchatapp.data.models.DataUserInfo
+import com.earl.ktorchatapp.data.models.*
 import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
+import com.earl.ktorchatapp.data.models.remote.RequestMessageDto
 import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
 import com.earl.ktorchatapp.domain.mappers.*
-import com.earl.ktorchatapp.domain.models.DomainLoginDto
-import com.earl.ktorchatapp.domain.models.DomainRegisterDto
-import com.earl.ktorchatapp.domain.models.DomainUserInfo
-import com.earl.ktorchatapp.ui.mappers.BaseUserInfoDomainToUiMapper
-import com.earl.ktorchatapp.ui.mappers.LoginDtoUiToDomainMapper
-import com.earl.ktorchatapp.ui.mappers.UiRegisterDtoUiToDomainMapper
+import com.earl.ktorchatapp.domain.models.*
+import com.earl.ktorchatapp.ui.mappers.*
+import com.earl.ktorchatapp.ui.models.UiChatRoom
+import com.earl.ktorchatapp.ui.models.UiMessage
 import com.earl.ktorchatapp.ui.models.UiUserInfo
 import dagger.Module
 import dagger.Provides
@@ -80,5 +76,59 @@ class MappersModule {
     @Provides
     fun provideUserInfoDomainToUiMapper() : UserInfoDomainToUiMapper<UiUserInfo> {
         return BaseUserInfoDomainToUiMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMessageCloudToDataMapper() : MessageCloudToDataMapper<DataMessage> {
+        return BaseMessageCloudToDataMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMessageDataToDomainMapper() : MessageDataToDomainMapper<DomainMessage> {
+        return BaseMessageDataToDomainMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun providesMessageDomainToUiMapper() : MessageDomainToUiMapper<UiMessage> {
+        return BaseMessageDomainToUiMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMessageUiToDomainMapper() : MessageUiToDomainMapper<DomainMessage> {
+        return BaseMessageUiToDomainMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideChatRoomCloudToDataMapper() : RoomCloudToDataMapper<DataChatRoom> {
+        return BaseRoomCloudToDataMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideChatRoomDataToDomainMapper() : RoomDataToDomainMapper<DomainChatRoom> {
+        return BaseRoomDataToDomainMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideChatRoomDomainToUiMapper() : RoomDomainToUiMapper<UiChatRoom> {
+        return BaseRoomDomainToUiMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMessageDomainToDataMapper() : MessageDomainToDataMapper<DataMessage> {
+        return BaseMessageDomainToDataMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMessageDataToCloudMapper() : MessageDataToRequestMapper<RequestMessageDto> {
+        return BaseMessageDataToRequestMapper()
     }
 }

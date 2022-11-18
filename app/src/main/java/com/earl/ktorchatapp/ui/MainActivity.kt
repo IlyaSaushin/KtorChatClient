@@ -11,8 +11,8 @@ import com.earl.ktorchatapp.core.Keys
 import com.earl.ktorchatapp.core.SharedPreferenceManager
 import com.earl.ktorchatapp.databinding.ActivityMainBinding
 import com.earl.ktorchatapp.ui.chat.baseFragment.BaseChatFragment
-import com.earl.ktorchatapp.ui.chat.contacts.ContactsFragment
 import com.earl.ktorchatapp.ui.chat.contacts.addContacts.AddContactFragment
+import com.earl.ktorchatapp.ui.chat.rooms.chat.ChatFragment
 import com.earl.ktorchatapp.ui.login.LoginFragment
 import com.earl.ktorchatapp.ui.register.RegisterDetailsFragment
 import com.earl.ktorchatapp.ui.register.RegisterFragment
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationContract {
         preferenceManager = SharedPreferenceManager(this)
         val isSignedUp = preferenceManager!!.getBoolean(Keys.KEY_IS_SIGNED_UP)
         if (isSignedUp) {
-            chat()
+            chatBaseFragment()
         } else {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, LoginFragment.newInstance())
@@ -53,12 +53,16 @@ class MainActivity : AppCompatActivity(), NavigationContract {
         showFragment(RegisterDetailsFragment.newInstance(email, password))
     }
 
-    override fun chat() {
+    override fun chatBaseFragment() {
         showFragment(BaseChatFragment.newInstance())
     }
 
     override fun contacts() {
         TODO("Not yet implemented")
+    }
+
+    override fun chat(token: String) {
+        showFragment(ChatFragment.newInstance(token))
     }
 
     override fun showAddNewContactFragment() {

@@ -128,7 +128,7 @@ class RegisterDetailsFragment @Inject constructor(
         preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true)
         preferenceManager.putString(Keys.KEY_TOKEN, success.toString())
         navigator.hideProgressBar()
-        navigator.chat()
+        navigator.chatBaseFragment()
     }
 
     override fun fail(exception: Exception?) {

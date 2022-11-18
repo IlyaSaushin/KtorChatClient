@@ -10,6 +10,6 @@ interface SocketsService {
     }
 
     sealed class Endpoints(val url: String) {
-        object Contacts: Endpoints("$BASE_URL/socketContacts")
+        object Chat: Endpoints("$BASE_URL/chat")
     }
 }

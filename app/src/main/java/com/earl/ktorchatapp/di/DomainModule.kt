@@ -2,18 +2,19 @@ package com.earl.ktorchatapp.di
 
 import com.earl.ktorchatapp.data.BaseRepository
 import com.earl.ktorchatapp.data.mappers.*
-import com.earl.ktorchatapp.data.models.DataLoginDto
-import com.earl.ktorchatapp.data.models.DataRegisterDto
-import com.earl.ktorchatapp.data.models.DataTokenDto
-import com.earl.ktorchatapp.data.models.DataUserInfo
+import com.earl.ktorchatapp.data.models.*
 import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
 import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
 import com.earl.ktorchatapp.data.retrofit.Service
 import com.earl.ktorchatapp.domain.Interactor
 import com.earl.ktorchatapp.domain.Repository
 import com.earl.ktorchatapp.domain.WebSocketRepository
+import com.earl.ktorchatapp.domain.mappers.BaseMessageDataToDomainMapper
+import com.earl.ktorchatapp.domain.mappers.BaseRoomDataToDomainMapper
 import com.earl.ktorchatapp.domain.mappers.LoginDtoDomainToDataMapper
 import com.earl.ktorchatapp.domain.mappers.RegisterDtoDomainToDataMapper
+import com.earl.ktorchatapp.domain.models.DomainChatRoom
+import com.earl.ktorchatapp.domain.models.DomainMessage
 import com.earl.ktorchatapp.domain.models.DomainUserInfo
 import dagger.Module
 import dagger.Provides
@@ -53,6 +54,10 @@ class DomainModule {
         loginDtoDataToRemoteMapper: LoginDtoDataToRemoteMapper<RequestLoginDto>,
         userInfoRemoteToDataMapper: UserInfoRemoteToDataMapper<DataUserInfo>,
         userInfoDataToDomainMapper: UserInfoDataToDomainMapper<DomainUserInfo>,
+        messageCloudToDataMapper: MessageCloudToDataMapper<DataMessage>,
+        messageDataToDomainMapper: MessageDataToDomainMapper<DomainMessage>,
+        roomCloudToDataMapper: RoomCloudToDataMapper<DataChatRoom>,
+        roomDataToDomainMapper: RoomDataToDomainMapper<DomainChatRoom>,
     ) : Repository {
         return BaseRepository(
             service,
@@ -62,7 +67,11 @@ class DomainModule {
             registerDomainToDataMapper,
             loginDtoDataToRemoteMapper,
             userInfoRemoteToDataMapper,
-            userInfoDataToDomainMapper
+            userInfoDataToDomainMapper,
+            messageCloudToDataMapper,
+            messageDataToDomainMapper,
+            roomCloudToDataMapper,
+            roomDataToDomainMapper
         )
     }
 }

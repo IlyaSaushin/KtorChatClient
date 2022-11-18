@@ -1,9 +1,7 @@
 package com.earl.ktorchatapp.domain
 
 import com.earl.ktorchatapp.core.OperationResultListener
-import com.earl.ktorchatapp.domain.models.DomainLoginDto
-import com.earl.ktorchatapp.domain.models.DomainRegisterDto
-import com.earl.ktorchatapp.domain.models.DomainUserInfo
+import com.earl.ktorchatapp.domain.models.*
 
 interface Repository {
 
@@ -20,4 +18,10 @@ interface Repository {
     suspend fun addUserToContacts(userUsername: String, contactUsername: String)
 
     suspend fun removeUserFromContacts(userUsername: String, contactUsername: String)
+
+    suspend fun addRoom(name: String, private: String, author: String, users: List<String>) : String
+
+    suspend fun fetchMessages(roomToken: String) : List<DomainMessage>
+
+    suspend fun fetchRooms(token: String) : List<DomainChatRoom>
 }
