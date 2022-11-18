@@ -8,24 +8,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.earl.ktorchatapp.databinding.ContactsRecyclerItemBinding
 import com.earl.ktorchatapp.ui.models.UiUserInfo
 
-class ContactsRecyclerAdapter : ListAdapter<UiUserInfo, ContactsRecyclerAdapter.ItemViewHolder>(Diff) {
+interface OnContactClickListener {
+    fun removeUserFromContacts(username: String)
+}
+
+class ContactsRecyclerAdapter(
+    private val clickListener: OnContactClickListener
+) : ListAdapter<UiUserInfo, ContactsRecyclerAdapter.ItemViewHolder>(Diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = ContactsRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ItemViewHolder(binding)
+        return ItemViewHolder(binding, clickListener)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.removeUserFromContacts(item.username())
     }
 
-    inner class ItemViewHolder(private val binding: ContactsRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(
+        private val binding: ContactsRecyclerItemBinding,
+        private val clickListener: OnContactClickListener
+    ) : RecyclerView.ViewHolder(binding.root), OnContactClickListener {
         fun bind(item: UiUserInfo) {
-            item.recyclerDetails(
+            item.contactsRecyclerDetails(
                 binding.userAvatar,
                 binding.userName
             )
+        }
+
+        override fun removeUserFromContacts(username: String) {
+            clickListener.removeUserFromContacts(username)
         }
     }
 

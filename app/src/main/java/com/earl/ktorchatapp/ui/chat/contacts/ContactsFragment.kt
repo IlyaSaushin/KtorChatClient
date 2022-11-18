@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-class ContactsFragment : BaseFragment<FragmentContactsBinding>() {
+class ContactsFragment : BaseFragment<FragmentContactsBinding>(), OnContactClickListener {
 
     private lateinit var navigator: NavigationContract
     private lateinit var preferenceManager: SharedPreferenceManager
@@ -38,6 +38,10 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>() {
         viewModel = ViewModelProvider(this, viewModelFactory)[ContactsViewModel::class.java]
         startSession()
         recycler()
+        binding.inviteFriend.setOnClickListener {
+            viewModel.closeSession()
+            navigator.showAddNewContactFragment()
+        }
     }
 
     private fun startSession() {
@@ -48,7 +52,7 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>() {
     }
 
     private fun recycler() {
-        val adapter = ContactsRecyclerAdapter()
+        val adapter = ContactsRecyclerAdapter(this)
         binding.recycler.adapter = adapter
         lifecycleScope.launchWhenStarted {
             viewModel._contacts
@@ -57,6 +61,13 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>() {
                     adapter.submitList(contact)
                 }.collect()
         }
+    }
+
+    override fun removeUserFromContacts(username: String) {
+        viewModel.removeUserFromContacts(
+            preferenceManager.getString(Keys.KEY_NAME) ?: "",
+            username
+        )
     }
 
     companion object {

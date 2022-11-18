@@ -6,9 +6,7 @@ import com.earl.ktorchatapp.data.models.DataLoginDto
 import com.earl.ktorchatapp.data.models.DataRegisterDto
 import com.earl.ktorchatapp.data.models.DataTokenDto
 import com.earl.ktorchatapp.data.models.DataUserInfo
-import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
-import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
-import com.earl.ktorchatapp.data.models.remote.RequestTokenDto
+import com.earl.ktorchatapp.data.models.remote.*
 import com.earl.ktorchatapp.data.retrofit.Service
 import com.earl.ktorchatapp.domain.Repository
 import com.earl.ktorchatapp.domain.mappers.LoginDtoDomainToDataMapper
@@ -68,4 +66,13 @@ class BaseRepository @Inject constructor(
             remote.map(userInfoRemoteToDataMapper)
                 .map(userInfoDataToDomainMapper)
         }
+
+    override suspend fun fetchAllUsers(username: String) =
+        service.fetchUsersList(RequestUsernameDto(username))
+            .map { it.map(userInfoRemoteToDataMapper) }
+            .map { it.map(userInfoDataToDomainMapper) }
+
+    override suspend fun addUserToContacts(userUsername: String, contactUsername: String) {
+        service.addContact(RequestAddContactDto(userUsername, contactUsername))
+    }
 }

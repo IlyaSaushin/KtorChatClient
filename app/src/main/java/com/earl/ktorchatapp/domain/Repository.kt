@@ -14,4 +14,8 @@ interface Repository {
     suspend fun fetchUserInfo(userToken: String) : DomainUserInfo
 
     suspend fun fetchContacts(userToken: String) : List<DomainUserInfo>
+
+    suspend fun fetchAllUsers(username: String) : List<DomainUserInfo>
+
+    suspend fun addUserToContacts(userUsername: String, contactUsername: String)
 }

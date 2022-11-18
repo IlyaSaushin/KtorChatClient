@@ -25,6 +25,8 @@ interface Interactor {
 
     suspend fun closeContactsSession()
 
+    suspend fun fetchAllUser(username: String) : List<DomainUserInfo>
+
     class Base @Inject constructor(
         private val repository: Repository,
         private val webSocketRepository: WebSocketRepository,
@@ -50,5 +52,7 @@ interface Interactor {
         override suspend fun closeContactsSession() {
             webSocketRepository.closeSession()
         }
+
+        override suspend fun fetchAllUser(username: String) = repository.fetchAllUsers(username)
     }
 }

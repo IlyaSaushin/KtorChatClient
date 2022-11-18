@@ -1,7 +1,6 @@
 package com.earl.ktorchatapp.ui.models
 
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.earl.ktorchatapp.core.Keys
 import com.earl.ktorchatapp.core.Same
 import com.earl.ktorchatapp.core.SharedPreferenceManager
@@ -13,7 +12,11 @@ interface UiUserInfo : Same<UiUserInfo> {
 
     fun save(preferenceManager: SharedPreferenceManager)
 
-    fun recyclerDetails(image: RoundedImageView, user: TextView)
+    fun contactsRecyclerDetails(image: RoundedImageView, userNickname: TextView)
+
+    fun globalUsersRecyclerDetails(image: RoundedImageView, userNickname: TextView)
+
+    fun username() : String
 
     class Base(
         private val email: String,
@@ -22,6 +25,8 @@ interface UiUserInfo : Same<UiUserInfo> {
         private val pic: String
     ) : UiUserInfo {
 
+        override fun username() = username
+
         override fun save(preferenceManager: SharedPreferenceManager) {
             preferenceManager.putString(Keys.KEY_IMAGE, pic)
             preferenceManager.putString(Keys.KEY_EMAIL, email)
@@ -29,8 +34,12 @@ interface UiUserInfo : Same<UiUserInfo> {
             preferenceManager.putString(Keys.KEY_USER_BIO, bio)
         }
 
-        override fun recyclerDetails(image: RoundedImageView, user: TextView) {
-            user.text = username
+        override fun contactsRecyclerDetails(image: RoundedImageView, userNickname: TextView) {
+            userNickname.text = username
+        }
+
+        override fun globalUsersRecyclerDetails(image: RoundedImageView, userNickname: TextView) {
+            userNickname.text = username
         }
     }
 }

@@ -53,6 +53,10 @@ class ContactsViewModel @Inject constructor(
         }
     }
 
+    fun removeUserFromContacts(userUsername: String, contactUsername: String) {
+        // todo
+    }
+
     fun closeSession() {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.closeContactsSession()

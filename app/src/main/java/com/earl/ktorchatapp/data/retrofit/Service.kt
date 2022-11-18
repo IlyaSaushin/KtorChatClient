@@ -1,8 +1,7 @@
 package com.earl.ktorchatapp.data.retrofit
 
-import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
-import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
-import com.earl.ktorchatapp.data.models.remote.RequestTokenDto
+import android.app.DownloadManager.Request
+import com.earl.ktorchatapp.data.models.remote.*
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -27,11 +26,11 @@ interface Service {
 //        @Body token: TokenDto?
 //    ): Call<List<RoomResponseDto?>?>?
 //
-//    @Headers("Content-Type: application/json")
-//    @POST("/users")
-//    fun fetchUsersList(
-//        @Body fetchAllUsers: UserUsernameDto?
-//    ): Observable<List<UserInfo?>?>?
+    @Headers("Content-Type: application/json")
+    @POST("/users")
+    suspend fun fetchUsersList(
+        @Body fetchAllUsers: RequestUsernameDto
+    ): List<RemoteUserInfo>
 //
 //    @Headers("Content-Type: application/json")
 //    @POST("/messages")
@@ -56,12 +55,12 @@ interface Service {
     suspend fun fetchContacts(
         @Body token: RequestTokenDto
     ): List<RemoteUserInfo>
-//
-//    @Headers("Content-Type: application/json")
-//    @POST("/addContact")
-//    fun addContacts(
-//        @Body addContactDto: AddContactDto?
-//    ): Call<String?>?
+
+    @Headers("Content-Type: application/json")
+    @POST("/addContact")
+    fun addContact(
+        @Body addContactDto: RequestAddContactDto
+    )
 //
 //    @Headers("Content-Type: application/json")
 //    @POST("/removeContact")
