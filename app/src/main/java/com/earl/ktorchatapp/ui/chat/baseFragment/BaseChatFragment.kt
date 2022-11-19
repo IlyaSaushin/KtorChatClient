@@ -28,8 +28,6 @@ import javax.inject.Inject
 
 class BaseChatFragment @Inject constructor() : BaseFragment<FragmentBaseChatBinding>(), OperationResultListener {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
     @Inject
     lateinit var viewModel: ChatBaseViewModel
     @Inject
@@ -43,8 +41,6 @@ class BaseChatFragment @Inject constructor() : BaseFragment<FragmentBaseChatBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectChatBaseFragment(this)
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
         viewModel = ViewModelProvider(this, viewModelFactory)[ChatBaseViewModel::class.java]
         viewPager(requireContext())
         fetchUserInfo()

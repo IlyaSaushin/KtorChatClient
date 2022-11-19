@@ -5,6 +5,6 @@ interface RoomCloudToDataMapper <T> {
     fun map(
         id: String,
         name: String,
-        private: String
+        icon: String
     ) : T
 }

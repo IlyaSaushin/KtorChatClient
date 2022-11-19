@@ -9,8 +9,8 @@ interface DataChatRoom {
     class Base(
         private val id: String,
         private val name: String,
-        private val private: String
+        private val icon: String
     ) : DataChatRoom {
-        override fun <T> map(mapper: RoomDataToDomainMapper<T>) = mapper.map(id, name, private)
+        override fun <T> map(mapper: RoomDataToDomainMapper<T>) = mapper.map(id, name, icon)
     }
 }

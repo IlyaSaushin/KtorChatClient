@@ -48,7 +48,13 @@ interface Service {
     suspend fun fetchUserInfo(
         @Body token: RequestTokenDto
     ): RemoteUserInfo
-//
+
+    @Headers("Content-Type: application/json")
+    @POST("/fetchContactInfo")
+    suspend fun fetchContactInfo(
+        @Body name: RequestContactNameDto
+    ): RemoteUserInfo
+
     @Headers("Content-Type: application/json")
     @POST("/contacts")
     suspend fun fetchContacts(

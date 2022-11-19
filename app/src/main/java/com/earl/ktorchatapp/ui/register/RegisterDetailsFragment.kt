@@ -32,8 +32,6 @@ class RegisterDetailsFragment @Inject constructor(
     private val password: String
 ) : BaseFragment<FragmentUserDetailsBinding>(), OperationResultListener {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
     @Inject
     lateinit var viewModel: RegisterViewModel
     @Inject
@@ -50,8 +48,6 @@ class RegisterDetailsFragment @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectRegisterDetailsFragment(this)
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
         viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
         binding.addAvatar.setOnClickListener {
             val intent =

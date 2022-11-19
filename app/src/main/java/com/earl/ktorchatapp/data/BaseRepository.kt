@@ -1,6 +1,8 @@
 package com.earl.ktorchatapp.data
 
 import com.earl.ktorchatapp.core.OperationResultListener
+import com.earl.ktorchatapp.data.local.AppDataBase
+import com.earl.ktorchatapp.data.local.RoomsContacts
 import com.earl.ktorchatapp.data.mappers.*
 import com.earl.ktorchatapp.data.models.*
 import com.earl.ktorchatapp.data.models.remote.*
@@ -13,6 +15,7 @@ import javax.inject.Inject
 
 class BaseRepository @Inject constructor(
     private val service: Service,
+    private val appDb: AppDataBase,
     private val loginDomainToData: LoginDtoDomainToDataMapper<DataLoginDto>,
     private val tokenRemoteToDataMapper: RemoteTokenToDataMapper<DataTokenDto>,
     private val registerDataToRemoteMapper: RegisterDtoDataToRemoteMapper<RequestRegisterDto>,
@@ -23,7 +26,8 @@ class BaseRepository @Inject constructor(
     private val messageCloudToDataMapper: MessageCloudToDataMapper<DataMessage>,
     private val messageDataToDomainMapper: MessageDataToDomainMapper<DomainMessage>,
     private val roomCloudToDataMapper: RoomCloudToDataMapper<DataChatRoom>,
-    private val roomDataToDomainMapper: RoomDataToDomainMapper<DomainChatRoom>
+    private val roomDataToDomainMapper: RoomDataToDomainMapper<DomainChatRoom>,
+    private val roomDbToDataMapper: ChatRoomDbToDataMapper<DataChatRoom>
 ) : Repository {
 
     override suspend fun login(loginDto: DomainLoginDto, callback: OperationResultListener) {
@@ -79,8 +83,8 @@ class BaseRepository @Inject constructor(
         service.removeContact(RequestRemoveUserFromContactDto(userUsername, contactUsername))
     }
 
-    override suspend fun addRoom(name: String, private: String, author: String, users: List<String>) =
-        service.addRoom(RequestNewRoom(name, private, author, users)).token
+    override suspend fun addRoom(name: String, icon: String, author: String, users: List<String>) =
+        service.addRoom(RequestNewRoom(name, icon, author, users)).token
 
     override suspend fun fetchMessages(roomToken: String) =
         service.fetchMessagesForRoom(RequestRoomToken(roomToken))
@@ -91,4 +95,16 @@ class BaseRepository @Inject constructor(
         service.fetchRoomsForUser(RequestTokenDto(token))
             .map { it.map(roomCloudToDataMapper) }
             .map { it.map(roomDataToDomainMapper) }
+
+    override suspend fun fetchContactInfo(name: String) =
+        service.fetchContactInfo(RequestContactNameDto(name))
+            .map(userInfoRemoteToDataMapper)
+            .map(userInfoDataToDomainMapper)
+
+    override suspend fun insertNewRoomContactIntoDb(contactName: String, roomToken: String) {
+        appDb.roomsDao().insertContact(RoomsContacts(1, roomToken, contactName, ""))
+    }
+
+    override suspend fun fetchAllRoomsContacts() =
+        appDb.roomsDao().fetchAllRoomsContacts().map { it.map(roomDbToDataMapper).map(roomDataToDomainMapper) }
 }

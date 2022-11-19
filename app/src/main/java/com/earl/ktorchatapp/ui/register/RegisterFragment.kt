@@ -13,8 +13,6 @@ import javax.inject.Inject
 
 class RegisterFragment @Inject constructor(): BaseFragment<FragmentRegisterBinding>() {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
     @Inject
     lateinit var validation: RegisterDetailsFormValidation
 
@@ -27,8 +25,6 @@ class RegisterFragment @Inject constructor(): BaseFragment<FragmentRegisterBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectRegisterFragment(this)
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
         binding.iconBack.setOnClickListener { navigator.back() }
         binding.createAccButton.setOnClickListener { registerDetailsFragment() }
     }

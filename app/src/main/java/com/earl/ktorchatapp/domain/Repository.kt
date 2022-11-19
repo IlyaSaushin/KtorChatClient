@@ -19,9 +19,15 @@ interface Repository {
 
     suspend fun removeUserFromContacts(userUsername: String, contactUsername: String)
 
-    suspend fun addRoom(name: String, private: String, author: String, users: List<String>) : String
+    suspend fun addRoom(name: String, icon: String, author: String, users: List<String>) : String
 
     suspend fun fetchMessages(roomToken: String) : List<DomainMessage>
 
     suspend fun fetchRooms(token: String) : List<DomainChatRoom>
+
+    suspend fun fetchContactInfo(name: String) : DomainUserInfo
+
+    suspend fun insertNewRoomContactIntoDb(contactName: String, roomToken: String)
+
+    suspend fun fetchAllRoomsContacts() : List<DomainChatRoom>
 }

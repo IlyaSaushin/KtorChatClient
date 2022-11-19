@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class BaseRoomDataToDomainMapper @Inject constructor(): RoomDataToDomainMapper<DomainChatRoom> {
 
-    override fun map(id: String, name: String, private: String) = DomainChatRoom.Base(id, name, private)
+    override fun map(id: String, name: String, icon: String) = DomainChatRoom.Base(id, name, icon)
 }

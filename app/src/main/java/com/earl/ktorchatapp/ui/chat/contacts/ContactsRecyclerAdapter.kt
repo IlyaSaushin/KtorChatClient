@@ -10,7 +10,7 @@ import com.earl.ktorchatapp.ui.models.UiUserInfo
 
 interface OnContactClickListener {
     fun removeUserFromContacts(username: String)
-    fun startChat(username: String)
+    fun startChat(contactUsername: String)
 }
 
 class ContactsRecyclerAdapter(
@@ -46,9 +46,9 @@ class ContactsRecyclerAdapter(
             }
         }
 
-        override fun startChat(username: String) {
+        override fun startChat(contactUsername: String) {
             binding.startMsg.setOnClickListener {
-                clickListener.startChat(username)
+                clickListener.startChat(contactUsername)
             }
         }
     }
