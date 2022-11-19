@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/write_text"
-        tools:listitem="@layout/recycler_message_item"
+        tools:listitem="@layout/recycler_contact_message"
         />
 
     <EditText

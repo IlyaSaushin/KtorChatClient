@@ -12,6 +12,8 @@ interface UiMessage : Same<UiMessage> {
 
     fun recyclerDetails(message: TextView)
 
+    fun isAuthoredMessage(token: String) : Boolean
+
     class Base(
         private val messageId: String,
         private val roomId: String,
@@ -26,5 +28,7 @@ interface UiMessage : Same<UiMessage> {
         override fun recyclerDetails(message: TextView) {
             message.text = messageText
         }
+
+        override fun isAuthoredMessage(token: String) = token == authorId
     }
 }

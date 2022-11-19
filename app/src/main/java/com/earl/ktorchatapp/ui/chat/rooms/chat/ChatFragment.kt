@@ -58,7 +58,7 @@ class ChatFragment(
     }
 
     private fun recycler() {
-        val adapter = MessagesRecyclerAdapter()
+        val adapter = MessagesRecyclerAdapter(preferenceManager.getString(Keys.KEY_TOKEN) ?: "")
         binding.recyclerMessages.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.stackFromEnd = true
