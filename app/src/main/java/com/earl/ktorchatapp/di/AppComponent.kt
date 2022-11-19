@@ -1,6 +1,7 @@
 package com.earl.ktorchatapp.di
 
 import android.app.Application
+import com.earl.ktorchatapp.data.local.AppDataBase
 import com.earl.ktorchatapp.data.retrofit.Client
 import com.earl.ktorchatapp.ui.chat.baseFragment.BaseChatFragment
 import com.earl.ktorchatapp.ui.chat.contacts.ContactsFragment
@@ -24,7 +25,8 @@ import javax.inject.Singleton
         ViewModelsModule::class,
         DomainModule::class,
         Client::class,
-        NetworkModule::class
+        NetworkModule::class,
+        RoomModule::class
     ]
 )
 interface AppComponent {

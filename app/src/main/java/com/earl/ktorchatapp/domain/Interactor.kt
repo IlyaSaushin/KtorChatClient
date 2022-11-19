@@ -22,7 +22,7 @@ interface Interactor {
 
     suspend fun addUserToContacts(userUsername: String, contactUsername: String)
 
-    suspend fun addRoom(name: String, private: String, author: String, users: List<String>) : String
+    suspend fun addRoom(name: String, icon: String, author: String, users: List<String>) : String
 
     suspend fun initChatSocketSession(username: String, roomToken: String) : Resource<Unit>
 
@@ -34,7 +34,13 @@ interface Interactor {
 
     suspend fun fetchRooms(token: String) : List<DomainChatRoom>
 
+    suspend fun fetchContactInfo(name: String) : DomainUserInfo
+
     suspend fun closeSession()
+
+    suspend fun insertNewRoomContactsIntoDb(roomToken: String, contactName: String)
+
+    suspend fun fetchAllRoomsContacts() : List<DomainChatRoom>
 
     class Base @Inject constructor(
         private val repository: Repository,
@@ -63,8 +69,8 @@ interface Interactor {
             repository.addUserToContacts(userUsername, contactUsername)
         }
 
-        override suspend fun addRoom(name: String, private: String, author: String, users: List<String>) =
-            repository.addRoom(name, private, author, users)
+        override suspend fun addRoom(name: String, icon: String, author: String, users: List<String>) =
+            repository.addRoom(name, icon, author, users)
 
         override suspend fun initChatSocketSession(username: String, roomToken: String) =
             webSocketRepository.initChatSession(username, roomToken)
@@ -83,5 +89,13 @@ interface Interactor {
         override suspend fun observeNewMessages() = webSocketRepository.observeMessages()
 
         override suspend fun fetchRooms(token: String) = repository.fetchRooms(token)
+
+        override suspend fun fetchContactInfo(name: String) = repository.fetchContactInfo(name)
+
+        override suspend fun insertNewRoomContactsIntoDb(roomToken: String, contactName: String) {
+            repository.insertNewRoomContactIntoDb(contactName, roomToken)
+        }
+
+        override suspend fun fetchAllRoomsContacts() = repository.fetchAllRoomsContacts()
     }
 }

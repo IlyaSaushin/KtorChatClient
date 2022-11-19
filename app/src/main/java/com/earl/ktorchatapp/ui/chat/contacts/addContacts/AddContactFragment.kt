@@ -16,8 +16,6 @@ import javax.inject.Inject
 
 class AddContactFragment : BaseFragment<FragmentAddNewContactBinding>(), GlobalUserCLickListener {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
@@ -31,8 +29,6 @@ class AddContactFragment : BaseFragment<FragmentAddNewContactBinding>(), GlobalU
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectAddContactFragment(this)
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
         viewModel = ViewModelProvider(this, viewModelFactory)[AddContactViewModel::class.java]
         fetchAllUsers()
         recycler()

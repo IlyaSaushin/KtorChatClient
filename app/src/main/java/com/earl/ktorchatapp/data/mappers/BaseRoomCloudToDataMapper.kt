@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class BaseRoomCloudToDataMapper @Inject constructor() : RoomCloudToDataMapper<DataChatRoom> {
 
-    override fun map(id: String, name: String, private: String) = DataChatRoom.Base(id, name, private)
+    override fun map(id: String, name: String, icon: String) = DataChatRoom.Base(id, name, icon)
 }

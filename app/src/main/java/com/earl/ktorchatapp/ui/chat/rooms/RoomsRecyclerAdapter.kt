@@ -9,7 +9,7 @@ import com.earl.ktorchatapp.databinding.RoomRecyclerItemBinding
 import com.earl.ktorchatapp.ui.models.UiChatRoom
 
 interface OnRoomClickListener{
-    fun joinChatRoom(token: String)
+    fun joinChatRoom(token: String, contactName: String)
 }
 
 class RoomsRecyclerAdapter(
@@ -25,13 +25,13 @@ class RoomsRecyclerAdapter(
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            clickListener.joinChatRoom(item.token())
+            clickListener.joinChatRoom(item.token(), item.name())
         }
     }
 
     inner class ItemViewHolder(private val binding: RoomRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: UiChatRoom) {
-            item.details(binding.userName)
+            item.recyclerDetails(binding.userName, binding.userAvatar)
         }
     }
 

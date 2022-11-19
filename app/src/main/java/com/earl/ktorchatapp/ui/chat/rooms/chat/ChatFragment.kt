@@ -21,11 +21,10 @@ import java.util.UUID
 import javax.inject.Inject
 
 class ChatFragment(
-    private val token: String
+    private val token: String,
+    private val contactName: String
 ) : BaseFragment<FragmentChatBinding>() {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
@@ -37,10 +36,9 @@ class ChatFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectChatFragment(this)
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
         viewModel = ViewModelProvider(this, viewModelFactory)[ChatViewModel::class.java]
         initSession()
+        initContactDetails()
         recycler()
         binding.sendBtn.setOnClickListener {
             if (!binding.writeText.text.isNullOrEmpty()) {
@@ -48,9 +46,22 @@ class ChatFragment(
                 binding.writeText.text.clear()
             }
         }
+        binding.backArrow.setOnClickListener {
+            viewModel.closeSession()
+            navigator.back()
+        }
+    }
+
+    private fun initContactDetails() {
+        viewModel.initContactDetails(contactName)
+        viewModel.observeContactInfo(this) {
+            it.initDetailsAsContact(binding.contactName, binding.contactAvatar)
+        }
+        navigator.hideProgressBar()
     }
 
     private fun initSession() {
+        navigator.showProgressBar()
         viewModel.initSession(
             preferenceManager.getString(Keys.KEY_NAME) ?: "",
             token
@@ -58,7 +69,7 @@ class ChatFragment(
     }
 
     private fun recycler() {
-        val adapter = MessagesRecyclerAdapter()
+        val adapter = MessagesRecyclerAdapter(preferenceManager.getString(Keys.KEY_TOKEN) ?: "")
         binding.recyclerMessages.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.stackFromEnd = true
@@ -88,6 +99,6 @@ class ChatFragment(
 
     companion object {
 
-        fun newInstance(token: String) = ChatFragment(token)
+        fun newInstance(token: String, contactName: String) = ChatFragment(token, contactName)
     }
 }

@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity(), NavigationContract {
         TODO("Not yet implemented")
     }
 
-    override fun chat(token: String) {
-        showFragment(ChatFragment.newInstance(token))
+    override fun chat(token: String, contactName: String) {
+        showFragment(ChatFragment.newInstance(token, contactName))
     }
 
     override fun showAddNewContactFragment() {

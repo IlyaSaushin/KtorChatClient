@@ -11,9 +11,6 @@ import com.earl.ktorchatapp.ui.NavigationContract
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
-
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -21,9 +18,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
-
         binding.test.setOnClickListener {
             preferenceManager.clear()
             navigator.login()

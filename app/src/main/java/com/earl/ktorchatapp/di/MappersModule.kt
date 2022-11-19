@@ -131,4 +131,10 @@ class MappersModule {
     fun provideMessageDataToCloudMapper() : MessageDataToRequestMapper<RequestMessageDto> {
         return BaseMessageDataToRequestMapper()
     }
+
+    @Singleton
+    @Provides
+    fun provideChatRoomDbToDataMapper() : ChatRoomDbToDataMapper<DataChatRoom> {
+        return BaseChatRoomDbToDataMapper()
+    }
 }

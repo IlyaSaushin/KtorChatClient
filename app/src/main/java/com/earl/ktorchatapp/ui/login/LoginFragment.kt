@@ -25,8 +25,6 @@ class LoginFragment @Inject constructor() : BaseFragment<FragmentLoginBinding>()
     lateinit var viewModel: LoginFragmentViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
 
     override fun viewBinding(
         inflater: LayoutInflater,
@@ -37,8 +35,6 @@ class LoginFragment @Inject constructor() : BaseFragment<FragmentLoginBinding>()
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectLoginFragment(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginFragmentViewModel::class.java]
-        navigator = requireActivity() as NavigationContract
-        preferenceManager = SharedPreferenceManager(requireContext())
         binding.logInButton.setOnClickListener { logIn() }
         binding.signUpButton.setOnClickListener { navigator.register() }
     }

@@ -45,7 +45,7 @@ data class RemoteMessageDto(
 data class RoomResponseDto(
     @SerializedName("id") val id: String,
     @SerializedName("name") val name: String,
-    @SerializedName("private") val private: String
+    @SerializedName("icon") val icon: String
 ) {
-    fun <T> map(mapper: RoomCloudToDataMapper<T>) = mapper.map(id, name, private)
+    fun <T> map(mapper: RoomCloudToDataMapper<T>) = mapper.map(id, name, icon)
 }

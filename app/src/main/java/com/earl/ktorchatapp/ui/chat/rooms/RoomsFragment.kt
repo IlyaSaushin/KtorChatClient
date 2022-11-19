@@ -16,8 +16,6 @@ import javax.inject.Inject
 
 class RoomsFragment : BaseFragment<FragmentRoomsBinding>(), OnRoomClickListener {
 
-    private lateinit var navigator: NavigationContract
-    private lateinit var preferenceManager: SharedPreferenceManager
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
@@ -31,9 +29,7 @@ class RoomsFragment : BaseFragment<FragmentRoomsBinding>(), OnRoomClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireContext().applicationContext as KtorChatApp).appComponent.injectRoomsFragment(this)
-        navigator = requireActivity() as NavigationContract
         viewModel = ViewModelProvider(this, viewModelFactory)[RoomsViewModel::class.java]
-        preferenceManager = SharedPreferenceManager(requireContext())
         fetchRooms()
         recycler()
     }
@@ -50,8 +46,8 @@ class RoomsFragment : BaseFragment<FragmentRoomsBinding>(), OnRoomClickListener 
         }
     }
 
-    override fun joinChatRoom(token: String) {
-        navigator.chat(token)
+    override fun joinChatRoom(token: String, contactName: String) {
+        navigator.chat(token, contactName)
     }
 
     companion object {

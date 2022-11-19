@@ -1,5 +1,7 @@
 package com.earl.ktorchatapp.ui.models
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.widget.TextView
 import com.earl.ktorchatapp.core.Keys
 import com.earl.ktorchatapp.core.Same
@@ -18,6 +20,8 @@ interface UiUserInfo : Same<UiUserInfo> {
 
     fun username() : String
 
+    fun initDetailsAsContact(name: TextView, avatar: RoundedImageView)
+
     class Base(
         private val email: String,
         private val username: String,
@@ -35,11 +39,24 @@ interface UiUserInfo : Same<UiUserInfo> {
         }
 
         override fun contactsRecyclerDetails(image: RoundedImageView, userNickname: TextView) {
+            val bytes = Base64.decode(pic, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            image.setImageBitmap(bitmap)
             userNickname.text = username
         }
 
         override fun globalUsersRecyclerDetails(image: RoundedImageView, userNickname: TextView) {
+            val bytes = Base64.decode(pic, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            image.setImageBitmap(bitmap)
             userNickname.text = username
+        }
+
+        override fun initDetailsAsContact(name: TextView, avatar: RoundedImageView) {
+            name.text = username
+            val bytes = Base64.decode(pic, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            avatar.setImageBitmap(bitmap)
         }
     }
 }

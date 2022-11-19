@@ -1,6 +1,7 @@
 package com.earl.ktorchatapp.di
 
 import com.earl.ktorchatapp.data.BaseRepository
+import com.earl.ktorchatapp.data.local.AppDataBase
 import com.earl.ktorchatapp.data.mappers.*
 import com.earl.ktorchatapp.data.models.*
 import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
@@ -47,6 +48,7 @@ class DomainModule {
     @Provides
     fun provideRepository(
         service: Service,
+        appDataBase: AppDataBase,
         loginDataToDomain: LoginDtoDomainToDataMapper<DataLoginDto>,
         tokenRemoteToData: RemoteTokenToDataMapper<DataTokenDto>,
         registerDataToRemoteMapper: RegisterDtoDataToRemoteMapper<RequestRegisterDto>,
@@ -58,9 +60,11 @@ class DomainModule {
         messageDataToDomainMapper: MessageDataToDomainMapper<DomainMessage>,
         roomCloudToDataMapper: RoomCloudToDataMapper<DataChatRoom>,
         roomDataToDomainMapper: RoomDataToDomainMapper<DomainChatRoom>,
+        roomDbToDataMapper: ChatRoomDbToDataMapper<DataChatRoom>,
     ) : Repository {
         return BaseRepository(
             service,
+            appDataBase,
             loginDataToDomain,
             tokenRemoteToData,
             registerDataToRemoteMapper,
@@ -71,7 +75,8 @@ class DomainModule {
             messageCloudToDataMapper,
             messageDataToDomainMapper,
             roomCloudToDataMapper,
-            roomDataToDomainMapper
+            roomDataToDomainMapper,
+            roomDbToDataMapper
         )
     }
 }

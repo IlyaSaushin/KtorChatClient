@@ -5,39 +5,126 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contact_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="5dp"
+        android:paddingVertical="5dp"
+        android:background="@color/chat_user_info_backdround">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/contact_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/back_arrow"
+            android:layout_marginStart="25dp"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            />
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ivan_ivanov"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/contact_avatar"
+            app:layout_constraintTop_toTopOf="@id/contact_avatar"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:id="@+id/contact_last_seen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_seen_at_12_45"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/contact_name"
+            app:layout_constraintStart_toStartOf="@id/contact_name"
+            app:layout_constraintBottom_toBottomOf="@id/contact_avatar"
+            />
+
+        <ImageView
+            android:id="@+id/chat_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat_etec"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMessages"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contact_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/write_text"
-        tools:listitem="@layout/recycler_message_item"
+        tools:listitem="@layout/recycler_contact_message"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         />
 
     <EditText
         android:id="@+id/write_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:hint="write text here..."
+        android:textSize="15sp"
+        android:hint="@string/type_message_here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingHorizontal="20dp"
         android:layout_marginBottom="20dp"
         android:layout_marginHorizontal="20dp"
+        android:paddingVertical="15dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="80dp"
+        android:background="@drawable/chat_edittext_background"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/write_text"
+        app:layout_constraintTop_toTopOf="@id/write_text"
+        app:layout_constraintEnd_toStartOf="@id/send_btn"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/add_feture_to_msg"
         />
 
     <ImageView
         android:id="@+id/send_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_send_24"
+        android:src="@drawable/send_msg_btn"
         app:layout_constraintEnd_toEndOf="@id/write_text"
         app:layout_constraintTop_toTopOf="@id/write_text"
         app:layout_constraintBottom_toBottomOf="@id/write_text"
+        android:layout_marginEnd="15dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

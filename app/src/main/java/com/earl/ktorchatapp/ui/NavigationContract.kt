@@ -10,7 +10,7 @@ interface NavigationContract {
 
     fun chatBaseFragment()
 
-    fun chat(token: String)
+    fun chat(token: String, contactName: String)
 
     fun contacts()
 
