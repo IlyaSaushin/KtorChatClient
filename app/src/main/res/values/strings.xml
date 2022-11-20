@@ -38,4 +38,10 @@
     <string name="type_message_here">Type message here...</string>
     <string name="ivan_ivanov">Ivan Ivanov</string>
     <string name="last_seen_at_12_45">last seen at 12:45</string>
+    <string name="e">Profile</string>
+    <string name="ivan_ivanovv">Ivan Ivanov</string>
+    <string name="some_bio">Some Bio</string>
+    <string name="change_email_address">Change Email address</string>
+    <string name="change_password">Change password</string>
+    <string name="save_details">Save details</string>
 </resources>
