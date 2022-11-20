@@ -5,15 +5,165 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/test"
-        android:layout_width="match_parent"
+        android:id="@+id/profile_chapter"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="profile"
+        android:text="@string/e"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"
+        android:textSize="22sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20sp"
+        />
+
+    <ImageView
+        android:id="@+id/sign_out"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toTopOf="@id/profile_chapter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/profile_chapter"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/sign_out_squre"
+        />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/users_avatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_chapter"
+        android:layout_marginTop="60dp"
+        app:riv_oval="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        />
+
+    <ImageView
+        android:id="@+id/change_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/users_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/users_avatar"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/change_image"
+        />
+
+    <TextView
+        android:id="@+id/users_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ivan_ivanovv"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:fontFamily="@font/roboto_medium"
+        app:layout_constraintTop_toBottomOf="@id/users_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/user_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/users_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/some_bio"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageView
+        android:id="@+id/edit_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/editpin"
+        app:layout_constraintStart_toEndOf="@id/user_bio"
+        app:layout_constraintTop_toTopOf="@id/user_bio"
+        app:layout_constraintBottom_toBottomOf="@id/user_bio"
+        android:layout_marginStart="10dp"
+        />
+
+    <TextView
+        android:id="@+id/change_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_email_address"
+        android:textSize="18sp"
+        android:fontFamily="@font/roboto_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_bio"
+        android:layout_marginEnd="150dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/change_email_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_edittext_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_email"
+        android:paddingVertical="10dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/message"
+        android:paddingStart="20dp"
+        android:drawablePadding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/change_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_password"
+        android:textSize="18sp"
+        android:fontFamily="@font/roboto_medium"
+        app:layout_constraintStart_toStartOf="@id/change_email"
+        app:layout_constraintTop_toBottomOf="@id/change_email_et"
+        android:layout_marginEnd="150dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/change_pass_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_edittext_background"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_password"
+        android:paddingVertical="10dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/lock"
+        android:paddingStart="20dp"
+        android:drawablePadding="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/save_details"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@drawable/button_background"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_pass_et"
+        android:layout_marginHorizontal="40dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

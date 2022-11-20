@@ -122,6 +122,7 @@ class RegisterDetailsFragment @Inject constructor(
         preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.text.toString().trim())
         preferenceManager.putString(Keys.KEY_USER_BIO, binding.userBio.text.toString().trim())
         preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true)
+        preferenceManager.putString(Keys.KEY_PASSWORD, password)
         preferenceManager.putString(Keys.KEY_TOKEN, success.toString())
         navigator.hideProgressBar()
         navigator.chatBaseFragment()
