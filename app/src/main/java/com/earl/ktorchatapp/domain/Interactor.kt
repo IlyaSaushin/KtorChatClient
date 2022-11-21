@@ -42,9 +42,12 @@ interface Interactor {
 
     suspend fun fetchAllRoomsContacts() : List<DomainChatRoom>
 
+    suspend fun sendNotification(sender: String, receiver: String, message: String)
+
     class Base @Inject constructor(
         private val repository: Repository,
         private val webSocketRepository: WebSocketRepository,
+        private val notificationService: NotificationService
     ) : Interactor {
 
         override suspend fun login(dto: DomainLoginDto, callback: OperationResultListener) {
@@ -84,6 +87,10 @@ interface Interactor {
 
         override suspend fun sendMessage(message: DomainMessage) {
             webSocketRepository.sendMessage(message)
+        }
+
+        override suspend fun sendNotification(sender: String, receiver: String, message: String) {
+            notificationService.sendNotification(sender, receiver, message)
         }
 
         override suspend fun observeNewMessages() = webSocketRepository.observeMessages()

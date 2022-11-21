@@ -95,6 +95,11 @@ class ChatFragment(
                 binding.writeText.text.trim().toString()
             )
         )
+        viewModel.sendNotification(
+            preferenceManager.getString(Keys.KEY_NAME) ?: "",
+            contactName,
+            binding.writeText.text.toString()
+        )
     }
 
     companion object {

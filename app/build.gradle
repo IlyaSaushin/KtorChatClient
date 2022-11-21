@@ -97,6 +97,12 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
     androidTestImplementation "androidx.room:room-testing:2.4.3"
+
+    // one signal
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+//    implementation 'com.onesignal:OneSignal:[3.8.3, 3.99.99]'
+
 }
 kapt {
     generateStubs = true

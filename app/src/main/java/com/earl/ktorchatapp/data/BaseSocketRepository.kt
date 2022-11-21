@@ -1,4 +1,4 @@
-package com.earl.ktorchatapp.data.sockets
+package com.earl.ktorchatapp.data
 
 import android.util.Log
 import com.earl.ktorchatapp.core.Resource
@@ -7,6 +7,7 @@ import com.earl.ktorchatapp.data.models.DataMessage
 import com.earl.ktorchatapp.data.models.DataUserInfo
 import com.earl.ktorchatapp.data.models.remote.RequestMessageDto
 import com.earl.ktorchatapp.data.retrofit.RemoteMessageDto
+import com.earl.ktorchatapp.domain.SocketsService
 import com.earl.ktorchatapp.domain.WebSocketRepository
 import com.earl.ktorchatapp.domain.mappers.MessageDomainToDataMapper
 import com.earl.ktorchatapp.domain.models.DomainMessage
