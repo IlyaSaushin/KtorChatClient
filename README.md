@@ -2,12 +2,12 @@
 This is the simple android chat written on my own backend using Ktor Framework. This app is not for production and was written exclusively in study cases.
 
 # Screens
-<a href="https://ibb.co/0hPj72X"><img src="https://i.ibb.co/0hPj72X/2022-11-21-13-14-14.png" alt="2022-11-21-13-14-14" border="0"></a>
-<a href="https://ibb.co/wyrLfPR"><img src="https://i.ibb.co/wyrLfPR/2022-11-21-13-15-25.png" alt="2022-11-21-13-15-25" border="0"></a>
-<a href="https://ibb.co/5FCH5YM"><img src="https://i.ibb.co/5FCH5YM/2022-11-21-13-16-12.png" alt="2022-11-21-13-16-12" border="0"></a>
-<a href="https://ibb.co/T2ZwzTB"><img src="https://i.ibb.co/T2ZwzTB/2022-11-21-13-16-22.png" alt="2022-11-21-13-16-22" border="0"></a> 
-<a href="https://ibb.co/pzrd2jC"><img src="https://i.ibb.co/pzrd2jC/2022-11-21-13-16-36.png" alt="2022-11-21-13-16-36" border="0"></a>
-<a href="https://ibb.co/3B66jBp"><img src="https://i.ibb.co/3B66jBp/2022-11-21-13-17-06.png" alt="2022-11-21-13-17-06" border="0"></a>
+<a href="https://ibb.co/0hPj72X"><img src="https://i.ibb.co/86FDCsB/2022-11-21-13-14-14.png" alt="2022-11-21-13-14-14" border="0"></a>
+<a href="https://ibb.co/wyrLfPR"><img src="https://i.ibb.co/6YJZkTm/2022-11-21-13-15-25.png" alt="2022-11-21-13-15-25" border="0"></a>
+<a href="https://ibb.co/5FCH5YM"><img src="https://i.ibb.co/dgXYQbW/2022-11-21-13-16-12.png" alt="2022-11-21-13-16-12" border="0"></a>
+<a href="https://ibb.co/T2ZwzTB"><img src="https://i.ibb.co/H40Km2D/2022-11-21-13-16-22.png" alt="2022-11-21-13-16-22" border="0"></a>
+<a href="https://ibb.co/pzrd2jC"><img src="https://i.ibb.co/yyBq0FL/2022-11-21-13-16-36.png" alt="2022-11-21-13-16-36" border="0"></a>
+<a href="https://ibb.co/3B66jBp"><img src="https://i.ibb.co/GcYY8cW/2022-11-21-13-17-06.png" alt="2022-11-21-13-17-06" border="0"></a>
 
 # Libraries and technologies used<br>
 <li><a href ="https://developer.android.com/topic/architecture">MVVM & LiveData</a>  - Saperate logic code from views and save the state in case the screen configuration changes.<br>
