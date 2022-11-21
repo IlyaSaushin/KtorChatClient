@@ -6,12 +6,12 @@ import com.earl.ktorchatapp.data.mappers.*
 import com.earl.ktorchatapp.data.models.*
 import com.earl.ktorchatapp.data.models.remote.RequestLoginDto
 import com.earl.ktorchatapp.data.models.remote.RequestRegisterDto
+import com.earl.ktorchatapp.domain.NotificationService
+import com.earl.ktorchatapp.data.NotificationServiceImpl
 import com.earl.ktorchatapp.data.retrofit.Service
 import com.earl.ktorchatapp.domain.Interactor
 import com.earl.ktorchatapp.domain.Repository
 import com.earl.ktorchatapp.domain.WebSocketRepository
-import com.earl.ktorchatapp.domain.mappers.BaseMessageDataToDomainMapper
-import com.earl.ktorchatapp.domain.mappers.BaseRoomDataToDomainMapper
 import com.earl.ktorchatapp.domain.mappers.LoginDtoDomainToDataMapper
 import com.earl.ktorchatapp.domain.mappers.RegisterDtoDomainToDataMapper
 import com.earl.ktorchatapp.domain.models.DomainChatRoom
@@ -28,11 +28,13 @@ class DomainModule {
     @Provides
     fun provideInteractor(
         repository: Repository,
-        webSocketRepository: WebSocketRepository
+        webSocketRepository: WebSocketRepository,
+        notificationService: NotificationService
     ) : Interactor {
         return Interactor.Base(
             repository,
-            webSocketRepository
+            webSocketRepository,
+            notificationService
         )
     }
 
@@ -78,5 +80,11 @@ class DomainModule {
             roomDataToDomainMapper,
             roomDbToDataMapper
         )
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotificationService() : NotificationService {
+        return NotificationServiceImpl()
     }
 }

@@ -1,4 +1,4 @@
-package com.earl.ktorchatapp.data.sockets
+package com.earl.ktorchatapp.domain
 
 interface SocketsService {
 

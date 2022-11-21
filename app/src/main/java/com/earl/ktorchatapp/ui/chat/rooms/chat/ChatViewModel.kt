@@ -80,6 +80,12 @@ class ChatViewModel @Inject constructor(
         }
     }
 
+    fun sendNotification(sender: String, receiver: String, message: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.sendNotification(sender, receiver, message)
+        }
+    }
+
     fun closeSession() {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.closeSession()

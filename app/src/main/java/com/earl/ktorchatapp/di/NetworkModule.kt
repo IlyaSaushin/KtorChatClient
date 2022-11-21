@@ -4,7 +4,7 @@ import com.earl.ktorchatapp.data.mappers.*
 import com.earl.ktorchatapp.data.models.DataMessage
 import com.earl.ktorchatapp.data.models.DataUserInfo
 import com.earl.ktorchatapp.data.models.remote.RequestMessageDto
-import com.earl.ktorchatapp.data.sockets.BaseSocketRepository
+import com.earl.ktorchatapp.data.BaseSocketRepository
 import com.earl.ktorchatapp.domain.WebSocketRepository
 import com.earl.ktorchatapp.domain.mappers.MessageDomainToDataMapper
 import com.earl.ktorchatapp.domain.models.DomainMessage
@@ -31,6 +31,12 @@ class NetworkModule {
              }*/
         }
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideNotificationHttpClient() : HttpClient {
+//        return HttpClient(Android)
+//    }
 
     @Provides
     @Singleton
