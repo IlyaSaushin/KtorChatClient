@@ -19,7 +19,7 @@
     <string name="email_address">Email</string>
     <string name="confirm_password">Confirm password</string>
     <string name="create_acc_button">Create account</string>
-    <string name="enter_data_to_register_text">Enter data</string>
+    <string name="enter_data_to_register_text">Enter your data</string>
     <string name="messages">Messages</string>
     <string name="enter_name_text">enter name</string>
     <string name="enter_ur_nickname_tv">NickName</string>

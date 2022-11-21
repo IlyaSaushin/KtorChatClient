@@ -15,6 +15,8 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.plugins.websocket.*
+import io.ktor.client.utils.EmptyContent.contentType
+import io.ktor.http.*
 import javax.inject.Singleton
 
 @Module

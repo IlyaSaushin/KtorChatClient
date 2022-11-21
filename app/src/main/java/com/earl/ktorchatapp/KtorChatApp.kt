@@ -1,10 +1,9 @@
 package com.earl.ktorchatapp
 
 import android.app.Application
-import com.earl.ktorchatapp.core.SharedPreferenceManager
 import com.earl.ktorchatapp.di.DaggerAppComponent
 import com.onesignal.OneSignal
-import java.util.UUID
+import java.util.*
 
 class KtorChatApp : Application() {
 
