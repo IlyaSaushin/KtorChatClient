@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,11 +130,8 @@ class RegisterDetailsFragment @Inject constructor(
     }
 
     override fun fail(exception: Exception?) {
-        Toast.makeText(
-            requireContext(),
-            "Registration failed, exception - " + exception + "Try to login, or register again",
-            Toast.LENGTH_LONG
-        ).show()
+        Log.d("tag", "fail: $exception")
+        navigator.hideProgressBar()
     }
 
     companion object {

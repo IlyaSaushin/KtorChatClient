@@ -46,6 +46,7 @@ class BaseSocketRepository @Inject constructor(
                 Resource.Error("Couldn't establish a connection.")
             }
         } catch (e: Exception) {
+            Log.d("tag", "initChatSession: $e")
             e.printStackTrace()
             Resource.Error(e.localizedMessage ?: "unknown error")
         }
